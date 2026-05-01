@@ -23,13 +23,13 @@ Use it to send messages, manage contacts and templates, and verify incoming webh
 From PyPI:
 
 ```bash
-pip install wazzapi-py
+pip install wazzapi
 ```
 
 With uv:
 
 ```bash
-uv add wazzapi-py
+uv add wazzapi
 ```
 
 Need a WazzAPI account first?
