@@ -861,7 +861,7 @@ wheels = [
 ]
 
 [[package]]
-name = "wazzapi-py"
+name = "wazzapi"
 version = "0.1.0"
 source = { editable = "." }
 dependencies = [
