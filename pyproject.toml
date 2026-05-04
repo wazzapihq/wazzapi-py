@@ -1,6 +1,6 @@
 [project]
 name = "wazzapi"
-version = "0.1.1"
+version = "0.1.2"
 description = "Typed Python SDK for WazzAPI"
 readme = { file = "README.md", content-type = "text/markdown" }
 requires-python = ">=3.10"
@@ -19,6 +19,7 @@ classifiers = [
   "Typing :: Typed",
 ]
 dependencies = [
+  "cryptography>=44.0,<45.0",
   "httpx>=0.28,<1.0",
   "pydantic>=2.11,<3.0",
 ]
@@ -30,6 +31,7 @@ API = "https://api.wazzapi.com"
 [dependency-groups]
 dev = [
   "pytest>=8.3,<9.0",
+  "pytest-asyncio>=0.25,<1.0",
   "twine>=6.1,<7.0",
 ]
 
@@ -52,3 +54,4 @@ include = [
 [tool.pytest]
 python_files = ["test_*.py"]
 testpaths = ["tests"]
+asyncio_mode = "auto"

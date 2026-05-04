@@ -58,3 +58,7 @@ class WazzapiAPIError(WazzapiError):
             details=details,
             response_text=response.text,
         )
+
+
+class WazzapiMediaError(WazzapiError):
+    """Raised when media download or decryption fails."""
