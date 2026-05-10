@@ -5,6 +5,7 @@ Official Python SDK for the [WazzAPI](https://wazzapi.com) platform.
 ## What you can do
 
 - Send direct WhatsApp messages (text, image, video, document, location, contact card, interactive buttons and lists)
+- Inspect WhatsApp devices and their connection health
 - Manage WhatsApp groups (create, join, leave, participants, settings)
 - Manage contacts and contact groups
 - Create and preview message templates
@@ -50,6 +51,7 @@ print(response.message_id)
 
 - [Authentication](authentication.md)
 - [Client](client.md)
+- [Devices](devices.md)
 - [Messages](messages.md)
 - [Groups](groups.md)
 - [Contacts](contacts.md)

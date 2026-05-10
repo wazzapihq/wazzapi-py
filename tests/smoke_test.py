@@ -10,7 +10,7 @@ from wazzapi import (
 
 
 def main() -> None:
-    assert __version__ == "0.2.0"
+    assert __version__ == "0.3.0"
 
     client = WazzapiClient(api_key="smoke-test-token")
     try:

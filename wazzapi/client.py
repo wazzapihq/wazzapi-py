@@ -7,7 +7,7 @@ import httpx
 from pydantic import BaseModel, TypeAdapter
 
 from .errors import WazzapiAPIError
-from .resources import ContactsResource, GroupsResource, MessagesResource, TemplatesResource
+from .resources import ContactsResource, DevicesResource, GroupsResource, MessagesResource, TemplatesResource
 
 DEFAULT_BASE_URL = "https://api.wazzapi.com"
 
@@ -39,6 +39,7 @@ class WazzapiClient:
         )
 
         self.contacts = ContactsResource(self)
+        self.devices = DevicesResource(self)
         self.groups = GroupsResource(self)
         self.messages = MessagesResource(self)
         self.templates = TemplatesResource(self)

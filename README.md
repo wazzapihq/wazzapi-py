@@ -2,11 +2,12 @@
 
 Official Python SDK for WazzAPI.
 
-Use it to send messages, manage contacts and templates, and verify incoming webhooks with a simple typed client.
+Use it to send messages, inspect WhatsApp devices, manage contacts and templates, and verify incoming webhooks with a simple typed client.
 
 ## What you can do with this SDK
 
 - send direct WhatsApp messages
+- list and inspect WhatsApp devices
 - list, create, update, and delete contacts
 - manage message templates and preview rendered content
 - verify and parse incoming WazzAPI webhooks
@@ -94,6 +95,19 @@ with WazzapiClient(api_key="your-api-key") as client:
 
 for contact in response.contacts:
     print(contact.model_dump())
+
+### List devices
+
+```python
+from wazzapi import WazzapiClient
+
+with WazzapiClient(api_key="your-api-key") as client:
+    response = client.devices.list(limit=20, status="connected")
+
+for device in response.devices:
+    print(device.name, device.session_name, device.status)
+```
+
 ```
 
 ### Create a template
@@ -158,6 +172,7 @@ Supported webhook event families:
 
 Ready-to-run examples live in `examples/`:
 
+- `examples/list_devices.py`
 - `examples/list_contacts.py`
 - `examples/send_message.py`
 - `examples/create_template.py`
@@ -168,6 +183,7 @@ Run them with:
 
 ```bash
 uv run python examples/list_contacts.py
+uv run python examples/list_devices.py
 uv run python examples/send_message.py
 uv run python examples/create_template.py
 uv run python examples/preview_template.py

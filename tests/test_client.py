@@ -15,6 +15,7 @@ def test_client_formats_bearer_auth_header() -> None:
         assert client.http.headers["Authorization"] == "Bearer plain-token"
         assert client.http.headers["Accept"] == "application/json"
         assert client.http.headers["Content-Type"] == "application/json"
+        assert client.devices is not None
     finally:
         client.close()
 

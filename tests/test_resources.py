@@ -13,6 +13,18 @@ from wazzapi import WazzapiClient, models
     ("call_factory", "expected_method", "expected_path", "expected_response_type", "response_json"),
     [
         (
+            lambda client: client.devices.list(limit=25, status="connected", search="main"),
+            "GET",
+            "/api/v1/devices",
+            models.DeviceListResponse,
+            {
+                "devices": [],
+                "total": 0,
+                "limit": 25,
+                "offset": 0,
+            },
+        ),
+        (
             lambda client: client.contacts.list(limit=25, search="alice"),
             "GET",
             "/api/v1/contacts",
@@ -132,6 +144,50 @@ def test_delete_endpoints_return_none() -> None:
         assert client.templates.delete("template_1") is None
 
     assert seen_paths == ["/api/v1/contacts/contact_1", "/api/v1/templates/template_1"]
+
+
+def test_get_device_returns_typed_response() -> None:
+    seen: dict[str, object] = {}
+
+    def handler(request: httpx.Request) -> httpx.Response:
+        seen["method"] = request.method
+        seen["path"] = request.url.path
+        return httpx.Response(
+            200,
+            json={
+                "id": "3c90c3cc-0d44-4b50-8888-8dd25736052a",
+                "name": "Primary Device",
+                "session_name": "main",
+                "status": "connected",
+                "is_primary": True,
+                "auto_warmer_enabled": True,
+                "total_messages_sent": 123,
+                "total_messages_received": 45,
+                "contacts_synced_count": 900,
+                "created_at": "2026-05-01T00:00:00Z",
+                "updated_at": "2026-05-02T00:00:00Z",
+                "timezone": "Asia/Jakarta",
+                "connection_attempts": 2,
+                "daily_message_limit": 1000,
+                "message_delay_ms": 500,
+                "phone_number": "6281234567890",
+                "last_connected_at": "2026-05-02T00:00:00Z",
+                "last_health_check_at": "2026-05-02T01:00:00Z",
+                "last_contact_sync_at": "2026-05-02T02:00:00Z",
+                "last_contact_sync_status": "completed",
+                "backend_id": "7a5d6343-1dd1-429a-8d83-25c9bf06c878",
+            },
+        )
+
+    transport = httpx.MockTransport(handler)
+    with WazzapiClient(base_url="https://api.example.com", transport=transport) as client:
+        result = client.devices.get("3c90c3cc-0d44-4b50-8888-8dd25736052a")
+
+    assert seen["method"] == "GET"
+    assert seen["path"] == "/api/v1/devices/3c90c3cc-0d44-4b50-8888-8dd25736052a"
+    assert isinstance(result, models.DeviceResponse)
+    assert result.session_name == "main"
+    assert result.timezone == "Asia/Jakarta"
 
 
 def test_sync_status_returns_typed_list() -> None:

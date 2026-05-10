@@ -55,6 +55,7 @@ The client exposes resources as attributes:
 | Resource | Description |
 |----------|-------------|
 | `client.contacts` | Contact and contact-group management |
+| `client.devices` | WhatsApp device listing and lookup |
 | `client.groups` | WhatsApp group management |
 | `client.messages` | Send and manage messages |
 | `client.templates` | Message template management |
